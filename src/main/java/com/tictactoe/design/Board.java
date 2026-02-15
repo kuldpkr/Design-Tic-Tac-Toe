@@ -1,34 +1,27 @@
 package com.tictactoe.design;
 
 public class Board {
-    private Player[][] board;
+    private final Player[][] board;
+    private final int size;
 
-    public Board(int rows, int cols) {
-        this.board = new Player[rows][cols];
+    public Board(int size) {
+        this.size = size;
+        this.board = new Player[size][size];
     }
 
-    public boolean checkAndMakeMove(Player player, int row, int col){
-        if(checkValidCell(row, col)){
-            if(board[row][col] == null){
-                board[row][col] = player;
-                return true;
-            }
-            else {
-                System.out.println("Cell already Occupied. Please try again!");
-                return false;
-            }
-        }
-        else {
-            System.out.println("Provided cell is out of bounds of the board " + row + " " + col + " Please try again!");
+    public boolean makeMove(Player player, int row, int col) {
+        if (row < 0 || row >= size || col < 0 || col >= size || board[row][col] != null) {
             return false;
         }
+        board[row][col] = player;
+        return true;
     }
 
     public void printBoard() {
-        for (Player[] players : board) {
-            for (int j = 0;j < players.length;j++) {
-                System.out.print(players[j] == null ? "-" : players[j]);
-                if (j < players.length - 1) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                System.out.print(board[i][j] == null ? "-" : board[i][j].getDisplayName());
+                if (j < size - 1) {
                     System.out.print("|");
                 }
             }
@@ -36,50 +29,11 @@ public class Board {
         }
     }
 
-    public boolean checkValidCell(int row, int col){
-        return row >= 0 && row < board.length && col >= 0 && col < board[0].length;
+    public Player[][] getBoard() {
+        return board;
     }
 
-    public GameState getGameState() {
-        // Check horizontally
-        for (Player[] players : board) {
-            if (players[0] == null)
-                return GameState.IN_PROGRESS;
-
-            if (players[0] == players[1] && players[1] == players[2]) {
-                return players[0] == Player.X ? GameState.X : GameState.O;
-            }
-        }
-
-        // Check vertically
-        for (int i = 0; i < board[0].length; i++) {
-            if (board[0][i] == null)
-                return GameState.IN_PROGRESS;
-
-            if (board[0][i] == board[1][i] && board[1][i] == board[2][i]){
-                return board[0][i] == Player.X ? GameState.X : GameState.O;
-            }
-        }
-
-        // Check diagonally
-        for(int i = 0; i < board.length; i++){
-            if(board[i][i] == null)
-                return GameState.IN_PROGRESS;
-        }
-
-        if (board[0][0] == board[1][1] && board[1][1] == board[2][2]){
-            return board[0][0] == Player.X ? GameState.X : GameState.O;
-        }
-
-        for(int i = 0; i < board.length; i++){
-            if(board[i][board.length - 1 - i] == null)
-                return GameState.IN_PROGRESS;
-        }
-
-        if (board[0][board.length - 1] == board[1][board.length - 2] && board[1][board.length - 2] == board[2][board.length - 3]){
-            return board[0][board.length - 1] == Player.X ? GameState.X : GameState.O;
-        }
-
-        return GameState.DRAW;
+    public int getSize() {
+        return size;
     }
 }

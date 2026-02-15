@@ -1,8 +1,7 @@
 package com.tictactoe.design;
 
 public enum GameState {
-    X,
-    O,
+    WIN,
     DRAW,
     IN_PROGRESS
 }

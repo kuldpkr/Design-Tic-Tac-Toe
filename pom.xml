@@ -8,8 +8,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- Project coordinates -->
-    <groupId>com.example</groupId>
-    <artifactId>my-java-app</artifactId>
+    <groupId>com.tictactoe.design</groupId>
+    <artifactId>tictactoe-design</artifactId>
     <version>1.0.0</version>
 
     <!-- Java version -->
