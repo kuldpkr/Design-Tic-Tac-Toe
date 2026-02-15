@@ -1,8 +1,8 @@
 package com.tictactoe.design;
 
 public enum Player {
-    X("Player 1"),
-    O("Player 2");
+    X("X"),
+    O("O");
 
     private final String displayName;
 
